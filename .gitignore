@@ -1,0 +1,12 @@
+# Ambiente virtual
+.venv/
+venv/
+
+# Cache do Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Insumos do desafio, não redistribuídos neste repositório
+insumos_Desafio_Bootcamp_SEP26*/
+*.pdf
