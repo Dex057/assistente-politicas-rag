@@ -74,4 +74,9 @@ def formatar_evidencia_p0(df: pd.DataFrame, contagem: dict[str, int]) -> str:
         + ", ".join(f"{status} = {n}" for status, n in sorted(contagem.items()))
     )
     linhas.append(f"Total de palavras no corpus: {int(df['n_palavras'].sum())}")
+    linhas.append("")
+    linhas.append(
+        "Decisão de leitura: leitura dirigida pelo metadados.csv; vigência pela coluna "
+        "status."
+    )
     return "\n".join(linhas)

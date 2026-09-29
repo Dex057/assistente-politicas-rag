@@ -121,7 +121,7 @@ Os documentos de políticas e os arquivos de avaliação não fazem parte deste
 repositório. O código espera encontrá-los na raiz do projeto com esta estrutura:
 
 ```
-insumos_Desafio_Bootcamp_SEP26/
+insumos_Desafio_Bootcamp_SEP26 (1)/
 ├── corpus/                     documentos em Markdown
 ├── metadados.csv               doc_id, titulo, area_responsavel, vigencia_inicio, versao, status, arquivo
 └── perguntas_gabarito.csv      pergunta_id, pergunta, doc_esperado, secao_esperada, resposta_esperada

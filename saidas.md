@@ -30,6 +30,8 @@ Total de documentos lidos: 12
 Contagem por status: revogada = 1, vigente = 11
 Total de palavras no corpus: 1468
 
+Decisão de leitura: leitura dirigida pelo metadados.csv; vigência pela coluna status.
+
 ---
 
 ## Parte 1 - Chunking por seção
@@ -197,4 +199,8 @@ Armadilha da FAQ-001: a FAQ repete de forma resumida o conteúdo de outras polí
 
 Análise de erro
 
-Nenhuma das 10 perguntas errou, então a análise vai para a que passou mais perto de falhar: a P09 ("Qual é o orçamento anual de treinamento por colaborador?"), com score 0.37 contra um threshold de 0.30. Ela recupera o chunk certo com folga enorme sobre o segundo colocado (0.37 contra 0.13), mas o score absoluto é baixo por dois motivos: a pergunta diz "treinamento" e o chunk diz "treinamentos", que o TF-IDF trata como termos distintos por não fazer stemming; e o chunk carrega uma segunda frase sobre saldo não transferido, que não tem nada a ver com a pergunta e dilui o vetor na normalização do cosseno. Correção testável: trocar os tokens de palavra por n-gramas de caracteres (analyzer="char_wb", ngram_range=(4,5)), que casa singular com plural sem precisar de stemmer. Eu testei: o score da P09 sobe de 0.37 para 0.54 e resolve o sintoma, mas a margem global cai de 0.143 para 0.052, porque a P10 também sobe (0.23 para 0.25) e a P02 desaba (0.55 para 0.34). A correção foi descartada com base nesse número: ela conserta uma pergunta e fragiliza o threshold, que é a defesa contra responder o que não existe.
+- Nenhuma pergunta errou; a que passou mais perto foi a P09 ("orçamento anual de treinamento"), com score 0.37 contra o threshold 0.30.
+- Causa: a pergunta diz "treinamento" e o chunk diz "treinamentos", termos distintos para o TF-IDF sem stemming; e uma segunda frase sobre saldo não transferido dilui o vetor na normalização do cosseno.
+- Correção testável: n-gramas de caracteres (analyzer="char_wb", ngram_range=(4,5)), que casa singular com plural sem stemmer.
+- Medido: a P09 sobe para 0.54, mas a margem global cai de 0.143 para 0.052, porque a P10 sobe (0.23 para 0.25) e a P02 desaba (0.55 para 0.34).
+- Decisão: descartada. Conserta uma pergunta e fragiliza o threshold, que é a defesa contra responder o que não existe.
